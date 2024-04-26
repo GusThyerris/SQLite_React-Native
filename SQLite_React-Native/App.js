@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import * as SQLite from 'expo-sqlite';
 import { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native'; // Importe o hook de navegação
 
 export default function App() {
+  const navigation = useNavigation(); // Use o hook de navegação
 
   const db = SQLite.openDatabase('example.db');
   const [isLoading, setIsLoading] = useState(true);
+
   const [names, setNames] = useState([]);
   const [currentName, setCurrentName] = useState(undefined);
 
@@ -67,6 +69,9 @@ export default function App() {
       <Button title='Add name' onPress={addName} />
       {showNames()}
       <StatusBar style="auto" />
+
+      {/* Botão para navegar para a outra página */}
+      <Button title="Go to Other Page" onPress={() => navigation.navigate('OtherPage')} />
     </View>
   );
 }
